@@ -37,23 +37,19 @@ class PostResource extends Resource
     {
         return $form
             ->schema([
+                TextInput::make('title')
+                    ->required(),
+                MarkdownEditor::make('content')
+                    ->required(),
+                Checkbox::make('is_featured'),
+                Checkbox::make('is_published'),
+
                 Placeholder::make('created_at')
                     ->label('Created Date')
                     ->content(fn(?Post $record): string => $record?->created_at?->diffForHumans() ?? '-'),
-
                 Placeholder::make('updated_at')
                     ->label('Last Modified Date')
                     ->content(fn(?Post $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
-
-                TextInput::make('title')
-                    ->required(),
-
-                MarkdownEditor::make('content')
-                    ->required(),
-
-                Checkbox::make('is_featured'),
-
-                Checkbox::make('is_published'),
             ]);
     }
 
@@ -64,14 +60,10 @@ class PostResource extends Resource
                 TextColumn::make('title')
                     ->searchable()
                     ->sortable(),
-
-                TextColumn::make('meta_description'),
-
-                ImageColumn::make('featured_image'),
-
                 TextColumn::make('is_featured'),
-
                 TextColumn::make('is_published'),
+                TextColumn::make('created_at')->dateTime('d/m/Y H:i'),
+                TextColumn::make('updated_at')->dateTime('d/m/Y H:i')
             ])
             ->filters([
                 TrashedFilter::make(),
