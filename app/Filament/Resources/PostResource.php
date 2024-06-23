@@ -5,8 +5,10 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\PostResource\Pages;
 use App\Models\Post;
 use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -18,12 +20,14 @@ use Filament\Tables\Actions\ForceDeleteAction;
 use Filament\Tables\Actions\ForceDeleteBulkAction;
 use Filament\Tables\Actions\RestoreAction;
 use Filament\Tables\Actions\RestoreBulkAction;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use phpDocumentor\Reflection\Types\Boolean;
 
 class PostResource extends Resource
 {
@@ -37,12 +41,28 @@ class PostResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('title')
-                    ->required(),
-                MarkdownEditor::make('content')
-                    ->required(),
-                Checkbox::make('is_featured'),
-                Checkbox::make('is_published'),
+                Section::make('Basic Information')
+                    ->schema([
+                        TextInput::make('title')
+                            ->required(),
+                        MarkdownEditor::make('content')
+                            ->required(),
+                    ])->columns(1),
+                Section::make('Meta Information')
+                    ->schema([
+
+                    ]),
+                Section::make('Images')
+                    ->schema([
+                        FileUpload::make('featured_image')
+                            ->image()
+                            ->disk('images'),
+                    ]),
+                Section::make('Visibility')
+                    ->schema([
+                        Checkbox::make('is_featured'),
+                        Checkbox::make('is_published'),
+                    ]),
 
                 Placeholder::make('created_at')
                     ->label('Created Date')
@@ -60,10 +80,12 @@ class PostResource extends Resource
                 TextColumn::make('title')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('is_featured'),
-                TextColumn::make('is_published'),
-                TextColumn::make('created_at')->dateTime('d/m/Y H:i'),
-                TextColumn::make('updated_at')->dateTime('d/m/Y H:i')
+                IconColumn::make('is_featured')
+                    ->label('Featured')
+                    ->boolean(),
+                IconColumn::make('is_published')
+                    ->label('Published')
+                    ->boolean(),
             ])
             ->filters([
                 TrashedFilter::make(),
