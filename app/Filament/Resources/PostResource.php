@@ -6,6 +6,7 @@ use App\Filament\Resources\PostResource\Pages;
 use App\Models\Post;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Section;
@@ -50,7 +51,7 @@ class PostResource extends Resource
                     ])->columns(1),
                 Section::make('Meta Information')
                     ->schema([
-
+                        KeyValue::make('meta_description')
                     ]),
                 Section::make('Images')
                     ->schema([
