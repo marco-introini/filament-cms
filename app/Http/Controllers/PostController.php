@@ -8,7 +8,11 @@ class PostController extends Controller
 {
     public function index()
     {
-        return view('posts.index', ['posts' => Post::all()]);
+        $elencoPost = Post::published()
+            ->orderBy('published_at', 'desc')
+            ->get();
+
+        return view('posts.index', ['posts' => $elencoPost]);
     }
 
     public function show(Post $post)

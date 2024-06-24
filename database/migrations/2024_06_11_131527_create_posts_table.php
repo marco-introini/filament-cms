@@ -23,6 +23,8 @@ return new class extends Migration {
                 ->default(false);
             $table->boolean('is_published')
                 ->default(false);
+            $table->dateTime('published_at')
+                ->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
