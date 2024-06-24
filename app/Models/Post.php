@@ -16,6 +16,14 @@ class Post extends Model
 
     protected $guarded = [];
 
+    /**
+     * @return array{
+     *     meta_description: 'array',
+     *     is_published: 'boolean',
+     *     is_featured: 'boolean',
+     *     published_at: 'datetime'
+     * }
+     */
     protected function casts(): array
     {
         return [

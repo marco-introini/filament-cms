@@ -61,6 +61,9 @@ class PostResource extends Resource
                 Section::make('Visibility')
                     ->schema([
                         Checkbox::make('is_featured'),
+                        Placeholder::make('published_at')
+                            ->label('Published Date')
+                            ->content(fn(?Post $record): string => $record?->published_at?->diffForHumans() ?? '-'),
                     ]),
 
                 Placeholder::make('created_at')
