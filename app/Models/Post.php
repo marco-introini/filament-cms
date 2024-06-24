@@ -18,7 +18,7 @@ class Post extends Model
 
     /**
      * @return array{
-     *     meta_description: 'array',
+     *     meta_description: 'json',
      *     is_published: 'boolean',
      *     is_featured: 'boolean',
      *     published_at: 'datetime'
@@ -27,7 +27,7 @@ class Post extends Model
     protected function casts(): array
     {
         return [
-            'meta_description' => 'array',
+            'meta_description' => 'json',
             'is_published' => 'boolean',
             'is_featured' => 'boolean',
             'published_at' => 'datetime',
