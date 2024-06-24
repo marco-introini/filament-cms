@@ -61,7 +61,6 @@ class PostResource extends Resource
                 Section::make('Visibility')
                     ->schema([
                         Checkbox::make('is_featured'),
-                        Checkbox::make('is_published'),
                     ]),
 
                 Placeholder::make('created_at')
