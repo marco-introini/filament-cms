@@ -17,6 +17,11 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
-        return $post->content;
+        $content = $post->content;
+        dd($content);
+
+        return view('posts.show', [
+            'content' => $content
+            ]);
     }
 }

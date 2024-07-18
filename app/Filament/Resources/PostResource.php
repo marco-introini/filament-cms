@@ -50,14 +50,16 @@ class PostResource extends Resource
                     ])->columns(1),
                 Section::make('Content')
                     ->schema([
-                        \Filament\Forms\Components\Builder::make('contents')
+                        \Filament\Forms\Components\Builder::make('content')
                             ->blockPreviews()
                             ->blocks([
-                                Block::make('Section Title')
+                                Block::make('title')
+                                    ->label('Section Title')
                                     ->schema([
                                         TextInput::make('title')
                                             ->required(),
                                         Select::make('level')
+                                            ->required()
                                             ->options([
                                                 'h1' => 'Heading 1',
                                                 'h2' => 'Heading 2',
@@ -67,7 +69,8 @@ class PostResource extends Resource
                                                 'h6' => 'Heading 6',
                                             ])
                                     ])->preview('filament.content.block-previews.heading'),
-                                Block::make('Section Content')
+                                Block::make('markdown')
+                                    ->label('Section Content')
                                     ->schema([
                                         MarkdownEditor::make('markdown')
                                     ])

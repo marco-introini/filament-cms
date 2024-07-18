@@ -6,7 +6,7 @@
 
     <ul>
         @foreach($posts as $post)
-            <li>{{$post->title}}</li>
+            <li class="underline"><a href="{{route('posts.show',$post)}}">{{$post->title}}</a></li>
         @endforeach
     </ul>
 </x-templates.template>
