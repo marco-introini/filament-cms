@@ -14,7 +14,7 @@ return new class extends Migration {
                 ->constrained()
                 ->restrictOnDelete();
             $table->string('title');
-            $table->text('content');
+            $table->json('content');
             $table->json('meta_description')
                 ->nullable();
             $table->string('featured_image')

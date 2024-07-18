@@ -4,12 +4,14 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\PostResource\Pages;
 use App\Models\Post;
+use Filament\Forms\Components\Builder\Block;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -28,7 +30,6 @@ use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use phpDocumentor\Reflection\Types\Boolean;
 
 class PostResource extends Resource
 {
@@ -46,9 +47,33 @@ class PostResource extends Resource
                     ->schema([
                         TextInput::make('title')
                             ->required(),
-                        MarkdownEditor::make('content')
-                            ->required(),
                     ])->columns(1),
+                Section::make('Content')
+                    ->schema([
+                        \Filament\Forms\Components\Builder::make('contents')
+                            ->blockPreviews()
+                            ->blocks([
+                                Block::make('Section Title')
+                                    ->schema([
+                                        TextInput::make('title')
+                                            ->required(),
+                                        Select::make('level')
+                                            ->options([
+                                                'h1' => 'Heading 1',
+                                                'h2' => 'Heading 2',
+                                                'h3' => 'Heading 3',
+                                                'h4' => 'Heading 4',
+                                                'h5' => 'Heading 5',
+                                                'h6' => 'Heading 6',
+                                            ])
+                                    ])->preview('filament.content.block-previews.heading'),
+                                Block::make('Section Content')
+                                    ->schema([
+                                        MarkdownEditor::make('markdown')
+                                    ])
+                                    ->preview('filament.content.block-previews.markdown'),
+                            ])
+                    ]),
                 Section::make('Meta Information')
                     ->schema([
                         KeyValue::make('meta_description')

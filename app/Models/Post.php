@@ -21,6 +21,7 @@ class Post extends Model
      *     meta_description: 'array',
      *     is_published: 'boolean',
      *     is_featured: 'boolean',
+     *     content: 'array',
      *     published_at: 'datetime'
      * }
      */
@@ -30,6 +31,7 @@ class Post extends Model
             'meta_description' => 'array',
             'is_published' => 'boolean',
             'is_featured' => 'boolean',
+            'content' => 'array',
             'published_at' => 'datetime',
         ];
     }
