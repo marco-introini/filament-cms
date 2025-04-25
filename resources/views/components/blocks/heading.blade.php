@@ -1,5 +1,9 @@
+@props([
+    'level' => 'h1'
+    ])
+
 <div class="prose">
     <{{$level}}>
-        {{ $title ?? 'default Heading' }}
+{{$slot}}
     </{{$level}}>
 </div>

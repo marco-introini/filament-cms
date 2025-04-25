@@ -51,7 +51,6 @@ class PostResource extends Resource
                 Section::make('Content')
                     ->schema([
                         \Filament\Forms\Components\Builder::make('content')
-                            ->blockPreviews()
                             ->blocks([
                                 Block::make('title')
                                     ->label('Section Title')
@@ -68,13 +67,12 @@ class PostResource extends Resource
                                                 'h5' => 'Heading 5',
                                                 'h6' => 'Heading 6',
                                             ])
-                                    ])->preview('filament.content.block-previews.heading'),
+                                    ]),
                                 Block::make('markdown')
                                     ->label('Section Content')
                                     ->schema([
                                         MarkdownEditor::make('markdown')
-                                    ])
-                                    ->preview('filament.content.block-previews.markdown'),
+                                    ]),
                             ])
                     ]),
                 Section::make('Meta Information')

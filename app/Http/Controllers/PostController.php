@@ -17,11 +17,10 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
-        $content = $post->content;
-        dd($content);
+        $contents = $post->content;
 
         return view('posts.show', [
-            'content' => $content
+            'contents' => $contents
             ]);
     }
 }
